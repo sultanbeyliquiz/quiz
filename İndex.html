@@ -802,7 +802,7 @@
                 <i class="fas fa-shield-halved" style="color: var(--accent-blue);"></i> Kişisel Verilerin Korunması Hakkında Aydınlatma Metni
             </label>
             <div class="kvkk-box">
-                İşbu bilgi yarışmasına katılım kapsamında sizden talep edilen <strong>ad-soyad</strong> ve <strong>telefon numarası</strong>,
+                İhh bilgi yarışmasına katılım kapsamında sizden talep edilen <strong>ad-soyad</strong> ve <strong>telefon numarası</strong>,
                 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca; yarışma katılımınızın ve sonucunuzun
                 değerlendirilmesi, sıralamanın oluşturulması, dereceye giren katılımcılarla iletişime geçilmesi ve
                 yarışmayla ilgili gerekli görülen bilgilendirmelerin yapılması amaçlarıyla, açık rızanıza dayanılarak
@@ -940,14 +940,17 @@
         // NOT: Bu config değerleri (apiKey dahil) Firebase'de "gizli anahtar" değildir;
         // herkese açık olmaları normaldir. Gerçek güvenlik Firestore Security Rules ve
         // Firebase Authentication ile sağlanır.
+        // AŞAĞIYI KENDİ FIREBASE PROJENİN DEĞERLERİYLE DEĞİŞTİR.
+        // Firebase Console > Project settings (dişli ikonu) > "Your apps" altındaki
+        // web uygulamandan bu objeyi aynen kopyalayıp buraya yapıştır.
         const firebaseConfig = {
-            apiKey: "AIzaSyBQptrDTtmLwgw2fZrulKC4EVq_1hXod6A",
-            authDomain: "ihhquiz-daf32.firebaseapp.com",
-            projectId: "ihhquiz-daf32",
-            storageBucket: "ihhquiz-daf32.firebasestorage.app",
-            messagingSenderId: "104206482341",
-            appId: "1:104206482341:web:9b2539d3cc7262c07bc64c",
-            measurementId: "G-710NPR5DP4"
+            apiKey: "AIzaSyAw3EBsCHXAIHqP7mUBhmftP76pIVZkMag",
+            authDomain: "quiz-6949c.firebaseapp.com",
+            projectId: "quiz-6949c",
+            storageBucket: "quiz-6949c.firebasestorage.app",
+            messagingSenderId: "177785813484",
+            appId: "1:177785813484:web:870fc1cd4c20a4d3f668c9",
+            measurementId: "G-VSRDC6W7KQ"
         };
 
         const app = initializeApp(firebaseConfig);
