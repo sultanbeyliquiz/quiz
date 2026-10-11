@@ -1168,26 +1168,11 @@
                 return;
             }
 
-            btnStartQuiz.disabled = true;
-            btnStartQuiz.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Kontrol ediliyor...';
-
-            // Bu numarayla daha önce katılım yapılmış mı diye bak.
-            // Bu sadece tek bir belgeyi (bu numarayı) kontrol eder; tüm liste
-            // yalnızca yönetici tarafından okunabilir (Firestore kuralları).
-            try {
-                const existing = await getDoc(doc(db, "results", normalizedPhone));
-                if (existing.exists()) {
-                    alert("Bu telefon numarası ile daha önce katılım sağlanmış. Her numara yalnızca bir kez katılabilir.");
-                    btnStartQuiz.disabled = false;
-                    btnStartQuiz.innerHTML = '<i class="fas fa-play"></i> Yarışmayı Başlat';
-                    return;
-                }
-            } catch (err) {
-                console.error("Tekrar kontrolü hatası:", err);
-                // Kontrol başarısız olsa da devam ediyoruz; asıl engelleme
-                // sonuç kaydedilirken Firestore kuralı tarafından yapılacak.
-            }
-
+            // NOT: Burada önceden bir "bu numara katıldı mı" kontrolü YAPMIYORUZ.
+            // Çünkü bunun için katılımcının o kaydı okuyabilmesi gerekirdi, bu da
+            // "veriler sadece yöneticiye açık" sözümüzle çelişirdi. Mükerrer
+            // katılım, testi bitirdiğinde (finishQuiz) sunucu tarafında, hiçbir
+            // şey okunmadan, sadece "create" reddedilerek engelleniyor.
             await loadQuestionsFromFirebase();
 
             userData.name = nameInput;
@@ -1310,7 +1295,7 @@
             } catch (err) {
                 console.error("Firebase kayıt hatası:", err);
                 if (err.code === 'permission-denied') {
-                    saveWarning = 'Bu telefon numarasıyla daha önce bir sonuç kaydedilmiş olduğu için bu deneme sıralamaya eklenmedi.';
+                    saveWarning = 'Bu telefon numarası ile daha önce katılım sağlanmış olduğu için bu sonuç sıralamaya eklenmedi.';
                 } else {
                     saveWarning = 'Sonucunuz sunucuya kaydedilemedi, lütfen yöneticiyle iletişime geçin.';
                 }
