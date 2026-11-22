@@ -218,6 +218,15 @@
             line-height: 1.5;
         }
 
+        select.form-input {
+            cursor: pointer;
+        }
+
+        select.form-input option {
+            background: #0f172a;
+            color: #fff;
+        }
+
         .form-input:focus {
             background: rgba(255, 255, 255, 0.09);
             border-color: var(--accent-blue);
@@ -724,6 +733,82 @@
             color: #000;
         }
 
+        /* Ayet / Hadis Kutusu */
+        .verse-box {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.10), rgba(16, 185, 129, 0.08));
+            border: 1px solid rgba(251, 191, 36, 0.28);
+            border-radius: 22px;
+            padding: 1.5rem 1.6rem;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .verse-title {
+            color: var(--accent-gold);
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .verse-text {
+            font-size: 1.02rem;
+            font-weight: 600;
+            line-height: 1.7;
+            color: #fff;
+        }
+
+        .verse-ref {
+            display: block;
+            margin-top: 0.3rem;
+            margin-bottom: 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .verse-note {
+            margin-top: 0.4rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.18);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+        }
+
+        /* Aylık dönem / Önde Gidenler */
+        .season-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-blue);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .winner-box {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(245, 158, 11, 0.1));
+            border: 1px solid var(--accent-gold);
+            border-radius: 18px;
+            padding: 1rem 1.3rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        .hidden-row {
+            opacity: 0.45;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -773,6 +858,50 @@
             </div>
         </div>
 
+        <!-- Ana sayfa ek alanları: Ayet/Hadis + Önde Gidenler -->
+        <div id="homeExtras">
+            <div class="verse-box">
+                <div class="verse-title"><i class="fas fa-book-quran"></i> Kul Hakkı Hatırlatması</div>
+                <div class="verse-text">“Ölçüde ve tartıda hile yapanların vay haline!”</div>
+                <span class="verse-ref">Mutaffifîn Suresi, 1. ayet</span>
+                <div class="verse-text">“Kimin üzerinde kardeşinin ırzına ya da başka bir şeye dair bir hak varsa, altının ve gümüşün geçmeyeceği gün gelmeden önce bugünden onunla helalleşsin.”</div>
+                <span class="verse-ref">Hz. Peygamber (s.a.v.) — Buhârî, Mezâlim 10</span>
+                <div class="verse-text">“Bizi aldatan bizden değildir.”</div>
+                <span class="verse-ref">Hz. Peygamber (s.a.v.) — Müslim, Îmân 164</span>
+                <div class="verse-note">
+                    Sevgili arkadaşlar, kopya çekmeyelim, hile yapmayalım. Burada yapacağımız her haksızlık,
+                    emeğiyle çalışan bir kardeşimizin önüne geçmek demektir ve <strong>kul hakkıdır</strong>.
+                    Hediye de, derece de bu dünyada kalır; kul hakkı ise yanımızda gider.
+                    Bilmediğimiz bir soruyu hileyle doğru işaretlemektense boş bırakmak çok daha hayırlıdır.
+                </div>
+            </div>
+
+            <div id="seasonCard" class="card-box hidden">
+                <h3 style="margin-bottom: 0.8rem; color: #fff; font-size: 1.2rem;"><i class="fas fa-ranking-star" style="color:var(--accent-gold);"></i> Önde Gidenler</h3>
+                <div class="season-pill" id="seasonBanner"></div>
+                <p style="font-size:0.85rem; color: var(--text-muted); line-height:1.6; margin-bottom:0.6rem;">
+                    Yarışma her ay 4 turdan oluşur. Dönem sonunda 4 turun puan ortalaması hesaplanır ve en yüksek ortalamaya sahip katılımcıya hediye verilir.
+                    Her turda aynı telefon numarasıyla yalnızca bir kez katılabilirsiniz.
+                </p>
+                <div style="overflow-x: auto;">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Sıra</th>
+                                <th>Ad Soyad</th>
+                                <th>Ort. Puan</th>
+                                <th>Katıldığı Tur</th>
+                            </tr>
+                        </thead>
+                        <tbody id="publicBoardBody">
+                            <tr><td colspan="4" style="text-align:center;">Liste henüz yayınlanmadı.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p id="boardUpdated" style="font-size:0.78rem; color: var(--text-muted); margin-top:0.8rem;"></p>
+            </div>
+        </div>
+
         <!-- 1. AŞAMA: Giriş Formu -->
         <div id="stepLogin" class="card-box">
             <h3 style="margin-bottom: 1.4rem; color: #fff; font-size: 1.25rem;"><i class="fas fa-user-edit" style="color:var(--accent-blue);"></i> Yarışmacı Kaydı</h3>
@@ -804,10 +933,12 @@
             <div class="kvkk-box">
                 İşbu bilgi yarışmasına katılım kapsamında sizden talep edilen <strong>ad-soyad</strong> ve <strong>telefon numarası</strong>,
                 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca; yarışma katılımınızın ve sonucunuzun
-                değerlendirilmesi, sıralamanın oluşturulması, dereceye giren katılımcılarla iletişime geçilmesi ve
+                değerlendirilmesi, sıralamanın oluşturulması, aylık dönem puan ortalamasının hesaplanması ve hediyenin verilmesi,
+                dereceye giren katılımcılarla iletişime geçilmesi ve
                 yarışmayla ilgili gerekli görülen bilgilendirmelerin yapılması amaçlarıyla, açık rızanıza dayanılarak
-                işlenecektir. Verileriniz yalnızca yetkili yöneticiler tarafından görüntülenebilir, yarışma amacı dışında
-                kullanılmaz ve üçüncü kişilerle paylaşılmaz. Verileriniz, yarışma süreci sona erip yasal saklama
+                işlenecektir. Telefon numaranız yalnızca yetkili yöneticiler tarafından görüntülenebilir; ad-soyadınız ve
+                puan ortalamanız ise ana sayfadaki "Önde Gidenler" listesinde yayınlanabilir. Verileriniz yarışma amacı dışında
+                kullanılmaz ve bu liste dışında üçüncü kişilerle paylaşılmaz. Verileriniz, yarışma süreci sona erip yasal saklama
                 yükümlülükleri tamamlandıktan sonra silinir veya anonim hâle getirilir. KVKK'nın 11. maddesi uyarınca;
                 verilerinizin işlenip işlenmediğini öğrenme, işlenme amacını öğrenme, yurt içinde/dışında aktarıldığı
                 üçüncü kişileri bilme, eksik veya yanlış işlenmişse düzeltilmesini isteme, KVKK'nın 7. maddesindeki
@@ -854,7 +985,7 @@
             </div>
 
             <div style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.25); padding: 1.1rem; border-radius: 16px; margin-bottom: 1.8rem; text-align: center; font-size: 0.92rem; color: var(--accent-blue); font-weight: 500;">
-                <i class="fas fa-shield-alt"></i> Sıralama sonuçları ve dereceye giren adaylar İHH Sancaktepe yetkililerince açıklanacaktır.
+                <i class="fas fa-shield-alt"></i> Sıralama sonuçları ve dereceye giren adaylar İHH Sultanbeyli yetkililerince açıklanacaktır.
             </div>
 
             <h3 style="margin-bottom: 1.2rem; font-size: 1.2rem;"><i class="fas fa-list-check" style="color:var(--accent-green);"></i> Soru Cevapları ve Çözümler</h3>
@@ -872,6 +1003,7 @@
 
             <div style="display: flex; gap: 12px; margin-bottom: 1.2rem; flex-wrap: wrap;">
                 <button class="btn btn-secondary tab-active" id="btnTabResults" style="font-size:0.88rem;"><i class="fas fa-trophy"></i> Katılımcı Sıralaması</button>
+                <button class="btn btn-secondary" id="btnTabMonthly" style="font-size:0.88rem;"><i class="fas fa-calendar-check"></i> Aylık Sıralama ve Liste</button>
                 <button class="btn btn-secondary" id="btnTabQuestions" style="font-size:0.88rem;"><i class="fas fa-edit"></i> Soruları ve Şıkları Düzenle</button>
                 <button class="btn btn-danger" id="btnResetAll" style="font-size:0.88rem; width:auto; padding: 0.9rem 1.6rem;"><i class="fas fa-trash-can"></i> Sıfırla</button>
             </div>
@@ -880,6 +1012,11 @@
             <div id="adminTabResults">
                 <div style="background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.3); padding: 0.8rem 1.2rem; border-radius: 14px; margin-bottom: 1rem; font-size: 0.88rem; color: var(--accent-gold);">
                     <i class="fas fa-info-circle"></i> <strong>Sıralama Mantığı:</strong> En yüksek puan önceliklidir. Eşitlik durumunda testi en hızlı (en az saniyede) bitiren üste geçer.
+                </div>
+
+                <div class="form-group" style="max-width: 260px;">
+                    <label for="roundFilter">Gösterilen Tur</label>
+                    <select id="roundFilter" class="form-input plain"></select>
                 </div>
 
                 <div style="overflow-x: auto;">
@@ -891,14 +1028,66 @@
                                 <th>Telefon Numarası</th>
                                 <th>Puan</th>
                                 <th>Süre</th>
+                                <th>Tur</th>
                                 <th>Tarih</th>
                             </tr>
                         </thead>
                         <tbody id="adminLeaderboardBody">
-                            <tr><td colspan="6" style="text-align: center;">Yükleniyor...</td></tr>
+                            <tr><td colspan="7" style="text-align: center;">Yükleniyor...</td></tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <!-- Aylık Dönem: Ortalama Sıralaması + Herkese Açık Liste Yönetimi -->
+            <div id="adminTabMonthly" class="hidden">
+                <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 0.9rem 1.2rem; border-radius: 14px; margin-bottom: 1rem; font-size: 0.88rem; color: var(--accent-blue); line-height: 1.6;">
+                    <i class="fas fa-calendar-check"></i> <strong id="seasonInfo">Dönem bilgisi yükleniyor...</strong><br>
+                    Her ay 4 tur yapılır. Dönem sonunda katılımcıların tur puanlarının aritmetik ortalaması alınır, en yüksek ortalamaya sahip kişi hediyeyi kazanır.
+                    Eşitlikte önce daha çok tura katılan, sonra turları ortalama daha hızlı bitiren üste geçer.
+                </div>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end; margin-bottom: 1rem;">
+                    <div class="form-group" style="margin-bottom:0; min-width:260px; flex:1;">
+                        <label for="avgModeSelect">Ortalama Hesabı</label>
+                        <select id="avgModeSelect" class="form-input plain">
+                            <option value="participated">Katıldığı turların ortalaması</option>
+                            <option value="all">4 tur üzerinden (katılmadığı tur 0 sayılır)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-secondary" id="btnNextRound" style="font-size:0.88rem;"><i class="fas fa-forward-step"></i> Sonraki Tura Geç</button>
+                    <button class="btn btn-danger" id="btnNewSeason" style="font-size:0.88rem; width:auto; padding: 0.9rem 1.6rem;"><i class="fas fa-rotate"></i> Yeni Dönem Başlat</button>
+                </div>
+
+                <div id="winnerBox" class="winner-box hidden"></div>
+
+                <div style="overflow-x: auto;">
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Derece</th>
+                                <th>Ad Soyad</th>
+                                <th>Telefon Numarası</th>
+                                <th>Tur 1</th>
+                                <th>Tur 2</th>
+                                <th>Tur 3</th>
+                                <th>Tur 4</th>
+                                <th>Ortalama</th>
+                                <th>Herkese Açık Listede</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminMonthlyBody">
+                            <tr><td colspan="9" style="text-align: center;">Yükleniyor...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="editor-actions">
+                    <button type="button" class="btn btn-primary" id="btnPublishBoard" style="flex:1;"><i class="fas fa-bullhorn"></i> Listeyi Ana Sayfada Yayınla / Güncelle</button>
+                </div>
+                <p style="font-size:0.8rem; color: var(--text-muted); line-height:1.6;">
+                    Bir ismi listeden kaldırmak için satırdaki göz butonuna basın, ardından "Listeyi Yayınla" butonuna basın. Kaldırılan kişi puanlarını ve hediye hakkını korur; yalnızca ana sayfadaki listede görünmez.
+                </p>
             </div>
 
             <!-- Soru & Şık Editörü -->
@@ -933,7 +1122,7 @@
 
     <script type="module">
         import { initializeApp } from "firebase/app";
-        import { getFirestore, collection, getDocs, doc, getDoc, setDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+        import { getFirestore, collection, getDocs, doc, getDoc, setDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
         // Firebase Yapılandırmanız
@@ -961,6 +1150,7 @@
         const MIN_OPTIONS = 2;
         const MAX_OPTIONS = 6;
         const QUIZ_SECONDS = 120;
+        const TOTAL_ROUNDS = 4;
 
         // Varsayılan Sorular
         const defaultQuestions = [
@@ -1032,7 +1222,11 @@
         let userAnswers = [];
         let timerInterval = null;
         let timeRemaining = QUIZ_SECONDS;
-        let userData = { name: '', phone: '' };
+        let userData = { name: '', phone: '', season: '', round: 1 };
+
+        // Aylık dönem durumu (settings/season) ve herkese açık liste (settings/board)
+        let season = null;   // { id, currentRound, totalRounds, avgMode, finished }
+        let board = null;    // { seasonId, currentRound, finished, entries: [{name, avg, rounds}], updatedAt }
 
         const stepLogin = document.getElementById('stepLogin');
         const stepQuiz = document.getElementById('stepQuiz');
@@ -1040,6 +1234,7 @@
         const adminPanel = document.getElementById('adminPanel');
         const adminLoginBox = document.getElementById('adminLoginBox');
         const adminTriggerText = document.getElementById('adminTriggerText');
+        const homeExtras = document.getElementById('homeExtras');
 
         function escapeHtml(text) {
             if (text === null || text === undefined) return '';
@@ -1116,6 +1311,132 @@
 
         loadQuestionsFromFirebase();
 
+        // ================== AYLIK DÖNEM (4 TUR) ==================
+        function newSeasonObject() {
+            const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
+            return {
+                id: 'D-' + stamp,
+                currentRound: 1,
+                totalRounds: TOTAL_ROUNDS,
+                avgMode: 'participated',
+                finished: false
+            };
+        }
+
+        async function loadSeason() {
+            try {
+                const snap = await getDoc(doc(db, "settings", "season"));
+                if (snap.exists()) {
+                    const d = snap.data();
+                    season = {
+                        id: String(d.id || ''),
+                        currentRound: Number.isInteger(d.currentRound) ? d.currentRound : 1,
+                        totalRounds: TOTAL_ROUNDS,
+                        avgMode: d.avgMode === 'all' ? 'all' : 'participated',
+                        finished: d.finished === true
+                    };
+                    if (!season.id) season = null;
+                } else {
+                    season = null;
+                }
+            } catch (err) {
+                console.error("Dönem bilgisi okunamadı:", err);
+                season = null;
+            }
+            return season;
+        }
+
+        async function saveSeason() {
+            await setDoc(doc(db, "settings", "season"), {
+                id: season.id,
+                currentRound: season.currentRound,
+                totalRounds: TOTAL_ROUNDS,
+                avgMode: season.avgMode,
+                finished: season.finished
+            });
+        }
+
+        async function ensureSeason() {
+            await loadSeason();
+            if (!season) {
+                season = newSeasonObject();
+                await saveSeason();
+            }
+        }
+
+        async function loadBoard() {
+            try {
+                const snap = await getDoc(doc(db, "settings", "board"));
+                board = snap.exists() ? snap.data() : null;
+            } catch (err) {
+                console.error("Liste okunamadı:", err);
+                board = null;
+            }
+            return board;
+        }
+
+        function renderPublicBoard() {
+            const card = document.getElementById('seasonCard');
+            if (!season) {
+                card.classList.add('hidden');
+                return;
+            }
+            card.classList.remove('hidden');
+
+            const banner = document.getElementById('seasonBanner');
+            if (season.finished) {
+                const winner = board && board.finished && Array.isArray(board.entries) && board.entries[0]
+                    ? ` — Hediye kazananı: ${escapeHtml(board.entries[0].name)} 🎁`
+                    : ' — Kazanan yetkililerce açıklanacaktır';
+                banner.innerHTML = `<i class="fas fa-flag-checkered"></i> Bu dönem tamamlandı${winner}`;
+            } else {
+                banner.innerHTML = `<i class="fas fa-flag"></i> Aktif Tur: ${season.currentRound} / ${TOTAL_ROUNDS}`;
+            }
+
+            const tbody = document.getElementById('publicBoardBody');
+            const entries = board && board.seasonId === season.id && Array.isArray(board.entries) ? board.entries : [];
+
+            if (entries.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Liste henüz yayınlanmadı.</td></tr>';
+                document.getElementById('boardUpdated').innerText = '';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            entries.forEach((e, i) => {
+                const rank = i + 1;
+                let rankText = `#${rank}`;
+                if (rank === 1) rankText = '🥇 1';
+                else if (rank === 2) rankText = '🥈 2';
+                else if (rank === 3) rankText = '🥉 3';
+
+                const tr = document.createElement('tr');
+                if (rank <= 3) tr.className = 'top-three-row';
+                tr.innerHTML = `
+                    <td><strong>${rankText}</strong></td>
+                    <td><strong>${escapeHtml(e.name)}</strong></td>
+                    <td><span style="color:var(--accent-green); font-weight:bold;">${escapeHtml(Number(e.avg).toFixed(2))}</span></td>
+                    <td>${escapeHtml(e.rounds)} / ${TOTAL_ROUNDS}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            let upd = '';
+            try {
+                if (board.updatedAt && board.updatedAt.toDate) {
+                    upd = 'Son güncelleme: ' + board.updatedAt.toDate().toLocaleString('tr-TR');
+                }
+            } catch (e) { /* yoksay */ }
+            document.getElementById('boardUpdated').innerText = upd;
+        }
+
+        async function initPublicHome() {
+            await loadSeason();
+            await loadBoard();
+            renderPublicBoard();
+        }
+        initPublicHome();
+
         // ---------- KVKK Onay Kutusu ----------
         const consentCheck = document.getElementById('consentCheck');
         const consentRow = document.getElementById('consentRow');
@@ -1175,12 +1496,27 @@
             // şey okunmadan, sadece "create" reddedilerek engelleniyor.
             await loadQuestionsFromFirebase();
 
+            // Aktif dönem ve tur bilgisini al
+            await loadSeason();
+            if (!season) {
+                alert("Yarışma dönemi henüz başlatılmadı. Lütfen yetkililerle iletişime geçin.");
+                return;
+            }
+            if (season.finished) {
+                alert("Bu dönemin tüm turları tamamlandı. Yeni dönem başladığında tekrar katılabilirsiniz.");
+                renderPublicBoard();
+                return;
+            }
+
             userData.name = nameInput;
             userData.phone = normalizedPhone;
+            userData.season = season.id;
+            userData.round = season.currentRound;
 
             currentQuestionIndex = 0;
             timeRemaining = QUIZ_SECONDS;
 
+            homeExtras.classList.add('hidden');
             stepLogin.classList.add('hidden');
             stepQuiz.classList.remove('hidden');
 
@@ -1280,22 +1616,26 @@
             let saveWarning = '';
 
             try {
-                // Belge kimliği = telefon numarası. Firestore kuralı bu belge
-                // zaten varsa yazmayı reddeder, böylece aynı numara ikinci kez
-                // (JS atlatılsa bile) sıralamaya giremez.
-                await setDoc(doc(db, "results", userData.phone), {
+                // Belge kimliği = dönem + tur + telefon numarası. Firestore kuralı bu belge
+                // zaten varsa yazmayı reddeder, böylece aynı numara aynı turda ikinci kez
+                // (JS atlatılsa bile) sıralamaya giremez. Her yeni turda aynı numara
+                // yeniden katılabilir.
+                await setDoc(doc(db, "results", `${userData.season}_r${userData.round}_${userData.phone}`), {
                     name: userData.name,
                     phone: userData.phone,
                     score: score,
                     total: questions.length,
                     timeSpent: timeSpent,
                     timeFormatted: timeFormatted,
+                    season: userData.season,
+                    round: userData.round,
+                    hidden: false,
                     timestamp: serverTimestamp()
                 });
             } catch (err) {
                 console.error("Firebase kayıt hatası:", err);
                 if (err.code === 'permission-denied') {
-                    saveWarning = 'Bu telefon numarası ile daha önce katılım sağlanmış olduğu için bu sonuç sıralamaya eklenmedi.';
+                    saveWarning = 'Bu telefon numarası ile bu turda daha önce katılım sağlanmış (veya tur sona ermiş) olduğu için bu sonuç sıralamaya eklenmedi.';
                 } else {
                     saveWarning = 'Sonucunuz sunucuya kaydedilemedi, lütfen yöneticiyle iletişime geçin.';
                 }
@@ -1392,8 +1732,14 @@
                 document.getElementById('adminEmail').value = '';
                 adminTriggerText.innerText = 'Yönetici Paneli';
                 await loadQuestionsFromFirebase();
+                try {
+                    await ensureSeason();
+                } catch (err) {
+                    console.error("Dönem oluşturulamadı:", err);
+                }
                 editQuestions = clone(questions);
                 adminPanel.classList.remove('hidden');
+                fillRoundFilter();
                 setActiveTab('results');
                 loadLeaderboard();
             } else {
@@ -1403,20 +1749,28 @@
         });
 
         const btnTabResults = document.getElementById('btnTabResults');
+        const btnTabMonthly = document.getElementById('btnTabMonthly');
         const btnTabQuestions = document.getElementById('btnTabQuestions');
 
         function setActiveTab(tab) {
-            const showResults = tab === 'results';
-            document.getElementById('adminTabResults').classList.toggle('hidden', !showResults);
-            document.getElementById('adminTabQuestions').classList.toggle('hidden', showResults);
-            btnTabResults.classList.toggle('tab-active', showResults);
-            btnTabQuestions.classList.toggle('tab-active', !showResults);
+            document.getElementById('adminTabResults').classList.toggle('hidden', tab !== 'results');
+            document.getElementById('adminTabMonthly').classList.toggle('hidden', tab !== 'monthly');
+            document.getElementById('adminTabQuestions').classList.toggle('hidden', tab !== 'questions');
+            btnTabResults.classList.toggle('tab-active', tab === 'results');
+            btnTabMonthly.classList.toggle('tab-active', tab === 'monthly');
+            btnTabQuestions.classList.toggle('tab-active', tab === 'questions');
         }
 
         btnTabResults.addEventListener('click', () => {
             collectEditorValues();
             setActiveTab('results');
             loadLeaderboard();
+        });
+
+        btnTabMonthly.addEventListener('click', () => {
+            collectEditorValues();
+            setActiveTab('monthly');
+            loadMonthly();
         });
 
         btnTabQuestions.addEventListener('click', () => {
@@ -1429,7 +1783,7 @@
                 alert("Bu işlem için yönetici girişi yapmalısınız.");
                 return;
             }
-            if (!confirm("DİKKAT! Tüm kayıtlı katılımcı bilgileri ve sorular silinecek.\n\nEmin misiniz?")) {
+            if (!confirm("DİKKAT! Tüm kayıtlı katılımcı bilgileri (tüm turlar ve dönemler), herkese açık liste ve sorular silinecek.\n\nEmin misiniz?")) {
                 return;
             }
             if (!confirm("Bu işlem GERİ ALINAMAZ! Tüm veriler kalıcı olarak silinecek.\n\nOnaylıyor musunuz?")) {
@@ -1455,16 +1809,29 @@
                 }
 
                 try {
+                    await deleteDoc(doc(db, "settings", "board"));
+                } catch (e) {
+                    console.warn("Liste belgesi silinirken uyarı:", e);
+                }
+
+                try {
                     localStorage.removeItem('ihh_questions');
                 } catch (e) { /* yoksay */ }
+
+                // Yeni, temiz bir dönem başlat (1. tur)
+                season = newSeasonObject();
+                await saveSeason();
+                board = null;
+                renderPublicBoard();
 
                 questions = normalizeQuestions(defaultQuestions);
                 editQuestions = clone(questions);
                 userAnswers = new Array(questions.length).fill(null);
                 updateQuestionCountInfo();
 
-                alert("✅ Sıfırlama tamamlandı!\n\n• Tüm katılımcı kayıtları silindi.\n• Sorular varsayılan hâline döndürüldü.");
+                alert("✅ Sıfırlama tamamlandı!\n\n• Tüm katılımcı kayıtları silindi.\n• Herkese açık liste temizlendi, yeni dönem (1. tur) başlatıldı.\n• Sorular varsayılan hâline döndürüldü.");
 
+                fillRoundFilter();
                 loadLeaderboard();
                 renderAdminQuestionEditor();
             } catch (err) {
@@ -1476,22 +1843,50 @@
             }
         });
 
+        // ---------- Sonuçları çek ----------
+        async function fetchAllResults() {
+            const snap = await getDocs(collection(db, "results"));
+            const arr = [];
+            snap.forEach((d) => arr.push({ id: d.id, ...d.data() }));
+            return arr;
+        }
+
+        // ---------- Tur filtresi (Katılımcı Sıralaması sekmesi) ----------
+        const roundFilter = document.getElementById('roundFilter');
+
+        function fillRoundFilter() {
+            const prev = roundFilter.value;
+            let html = '';
+            for (let r = 1; r <= TOTAL_ROUNDS; r++) {
+                html += `<option value="${r}">Tur ${r}</option>`;
+            }
+            html += '<option value="all">Tüm turlar (bu dönem)</option>';
+            roundFilter.innerHTML = html;
+            roundFilter.value = prev && roundFilter.querySelector(`option[value="${prev}"]`)
+                ? prev
+                : String(season ? season.currentRound : 1);
+        }
+        fillRoundFilter();
+        roundFilter.addEventListener('change', loadLeaderboard);
+
         async function loadLeaderboard() {
             const tbody = document.getElementById('adminLeaderboardBody');
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Veriler Yükleniyor...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Veriler Yükleniyor...</td></tr>';
 
             try {
-                const querySnapshot = await getDocs(collection(db, "results"));
+                if (!season) await ensureSeason();
+                const all = await fetchAllResults();
 
-                if (querySnapshot.empty) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Henüz kayıtlı sonuç yok.</td></tr>';
+                const filterVal = roundFilter.value;
+                let resultsList = all.filter((r) => {
+                    if (!season || r.season !== season.id) return false;
+                    return filterVal === 'all' || Number(r.round) === Number(filterVal);
+                });
+
+                if (resultsList.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Henüz kayıtlı sonuç yok.</td></tr>';
                     return;
                 }
-
-                let resultsList = [];
-                querySnapshot.forEach((docSnap) => {
-                    resultsList.push({ id: docSnap.id, ...docSnap.data() });
-                });
 
                 resultsList.sort((a, b) => {
                     const scoreA = Number(a.score ?? 0);
@@ -1522,34 +1917,39 @@
                     tr.innerHTML = `
                         <td>${rankBadge}</td>
                         <td><strong>${escapeHtml(data.name || '')}</strong></td>
-                        <td>
-                            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-                                <a href="tel:${escapeHtml(fullPhone)}" class="phone-link">
-                                    <i class="fas fa-phone-alt"></i>
-                                    <span class="phone-text" data-full="${escapeHtml(fullPhone)}" data-masked="${escapeHtml(maskPhone(fullPhone))}">${escapeHtml(maskPhone(fullPhone))}</span>
-                                </a>
-                                <button type="button" class="icon-btn phone-toggle-btn" title="Numarayı göster/gizle" style="width:30px; height:30px; border-color: rgba(56,189,248,0.35); background: rgba(56,189,248,0.12); color: var(--accent-blue);">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </td>
+                        <td>${phoneCellHtml(fullPhone)}</td>
                         <td><span style="color:var(--accent-green); font-weight:bold; font-size:1.05rem;">${escapeHtml(data.score)}/${escapeHtml(total)} Puan</span></td>
                         <td><i class="far fa-clock"></i> ${escapeHtml(data.timeFormatted || '')}</td>
+                        <td>${escapeHtml(data.round ?? '-')}</td>
                         <td>${data.timestamp ? new Date(data.timestamp.toDate()).toLocaleDateString('tr-TR') : '-'}</td>
                     `;
                     tbody.appendChild(tr);
                 });
             } catch (err) {
                 console.error("Leaderboard hatası:", err);
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color:var(--accent-red); font-weight:bold;">
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color:var(--accent-red); font-weight:bold;">
                     <i class="fas fa-exclamation-triangle"></i> Hata Oluştu: ${escapeHtml(err.message)}
                 </td></tr>`;
             }
         }
 
+        function phoneCellHtml(fullPhone) {
+            return `
+                <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                    <a href="tel:${escapeHtml(fullPhone)}" class="phone-link">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="phone-text" data-full="${escapeHtml(fullPhone)}" data-masked="${escapeHtml(maskPhone(fullPhone))}">${escapeHtml(maskPhone(fullPhone))}</span>
+                    </a>
+                    <button type="button" class="icon-btn phone-toggle-btn" title="Numarayı göster/gizle" style="width:30px; height:30px; border-color: rgba(56,189,248,0.35); background: rgba(56,189,248,0.12); color: var(--accent-blue);">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            `;
+        }
+
         // Numara göster/gizle: sadece ekran metnini değiştirir; "Ara" linki
         // (href="tel:...") her zaman tam numarayı kullanır, maskeliyken de.
-        document.getElementById('adminLeaderboardBody').addEventListener('click', (e) => {
+        function handlePhoneToggle(e) {
             const btn = e.target.closest('.phone-toggle-btn');
             if (!btn) return;
             const span = btn.closest('td').querySelector('.phone-text');
@@ -1557,6 +1957,263 @@
             const isMasked = span.innerText === span.dataset.masked;
             span.innerText = isMasked ? span.dataset.full : span.dataset.masked;
             icon.className = isMasked ? 'fas fa-eye-slash' : 'fas fa-eye';
+        }
+        document.getElementById('adminLeaderboardBody').addEventListener('click', handlePhoneToggle);
+        document.getElementById('adminMonthlyBody').addEventListener('click', handlePhoneToggle);
+
+        // ================== AYLIK SIRALAMA (ORTALAMA) ==================
+        let monthlyCache = [];
+
+        function aggregateSeason(all) {
+            const byPhone = new Map();
+            all.forEach((r) => {
+                if (!season || r.season !== season.id) return;
+                const rd = Number(r.round);
+                if (!(rd >= 1 && rd <= TOTAL_ROUNDS)) return;
+                const phone = r.phone || '';
+                if (!byPhone.has(phone)) {
+                    byPhone.set(phone, { phone, name: r.name || '', rounds: {}, times: [], docIds: [], hidden: false, latestMs: 0 });
+                }
+                const p = byPhone.get(phone);
+                p.rounds[rd] = Number(r.score ?? 0);
+                p.times.push(Number(r.timeSpent ?? 0));
+                p.docIds.push(r.id);
+                if (r.hidden === true) p.hidden = true;
+                const ms = r.timestamp && r.timestamp.toMillis ? r.timestamp.toMillis() : 0;
+                if (ms >= p.latestMs) { p.latestMs = ms; p.name = r.name || p.name; }
+            });
+
+            const list = [];
+            byPhone.forEach((p) => {
+                const count = Object.keys(p.rounds).length;
+                const sum = Object.values(p.rounds).reduce((a, b) => a + b, 0);
+                const den = season.avgMode === 'all' ? TOTAL_ROUNDS : count;
+                p.count = count;
+                p.avg = den > 0 ? sum / den : 0;
+                p.avgTime = p.times.reduce((a, b) => a + b, 0) / (p.times.length || 1);
+                list.push(p);
+            });
+
+            list.sort((a, b) => {
+                if (b.avg !== a.avg) return b.avg - a.avg;
+                if (b.count !== a.count) return b.count - a.count;
+                return a.avgTime - b.avgTime;
+            });
+            return list;
+        }
+
+        function updateSeasonControls() {
+            const info = document.getElementById('seasonInfo');
+            const btnNext = document.getElementById('btnNextRound');
+            document.getElementById('avgModeSelect').value = season.avgMode;
+
+            if (season.finished) {
+                info.innerText = `Dönem: ${season.id} • Tüm turlar tamamlandı`;
+                btnNext.disabled = true;
+                btnNext.innerHTML = '<i class="fas fa-flag-checkered"></i> Dönem Tamamlandı';
+            } else if (season.currentRound < TOTAL_ROUNDS) {
+                info.innerText = `Dönem: ${season.id} • Aktif tur: ${season.currentRound} / ${TOTAL_ROUNDS}`;
+                btnNext.disabled = false;
+                btnNext.innerHTML = `<i class="fas fa-forward-step"></i> ${season.currentRound}. Turu Bitir, ${season.currentRound + 1}. Tura Geç`;
+            } else {
+                info.innerText = `Dönem: ${season.id} • Aktif tur: ${season.currentRound} / ${TOTAL_ROUNDS} (son tur)`;
+                btnNext.disabled = false;
+                btnNext.innerHTML = '<i class="fas fa-flag-checkered"></i> Son Turu Bitir ve Dönemi Kapat';
+            }
+        }
+
+        async function loadMonthly() {
+            const tbody = document.getElementById('adminMonthlyBody');
+            const winnerBox = document.getElementById('winnerBox');
+            tbody.innerHTML = '<tr><td colspan="9" style="text-align: center;">Veriler Yükleniyor...</td></tr>';
+
+            try {
+                if (!season) await ensureSeason();
+                updateSeasonControls();
+
+                const all = await fetchAllResults();
+                monthlyCache = aggregateSeason(all);
+
+                if (monthlyCache.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="9" style="text-align: center;">Bu dönemde henüz kayıtlı sonuç yok.</td></tr>';
+                    winnerBox.classList.add('hidden');
+                    return;
+                }
+
+                const top = monthlyCache[0];
+                winnerBox.classList.remove('hidden');
+                winnerBox.innerHTML = season.finished
+                    ? `🎁 <strong>Dönemin hediye kazananı:</strong> ${escapeHtml(top.name)} — Ortalama ${top.avg.toFixed(2)} (${top.count} tur) — Tel: <a class="phone-link" href="tel:${escapeHtml(top.phone)}">${escapeHtml(top.phone)}</a>`
+                    : `🏁 <strong>Şu anki lider:</strong> ${escapeHtml(top.name)} — Ortalama ${top.avg.toFixed(2)} (${top.count} tur). Dönem kapandığında hediye kazananı kesinleşir.`;
+
+                tbody.innerHTML = '';
+                monthlyCache.forEach((p, index) => {
+                    const rank = index + 1;
+                    let rankBadge = `<strong>#${rank}</strong>`;
+                    if (rank === 1) rankBadge = '<span class="badge-rank rank-1">🥇 1.</span>';
+                    else if (rank === 2) rankBadge = '<span class="badge-rank rank-2">🥈 2.</span>';
+                    else if (rank === 3) rankBadge = '<span class="badge-rank rank-3">🥉 3.</span>';
+
+                    const tr = document.createElement('tr');
+                    tr.className = (rank <= 3 ? 'top-three-row ' : '') + (p.hidden ? 'hidden-row' : '');
+
+                    const roundCells = [];
+                    for (let r = 1; r <= TOTAL_ROUNDS; r++) {
+                        roundCells.push(`<td>${p.rounds[r] !== undefined ? escapeHtml(p.rounds[r]) : '—'}</td>`);
+                    }
+
+                    tr.innerHTML = `
+                        <td>${rankBadge}</td>
+                        <td><strong>${escapeHtml(p.name)}</strong></td>
+                        <td>${phoneCellHtml(p.phone)}</td>
+                        ${roundCells.join('')}
+                        <td><span style="color:var(--accent-green); font-weight:bold; font-size:1.05rem;">${p.avg.toFixed(2)}</span></td>
+                        <td>
+                            <button type="button" class="icon-btn" data-action="toggle-hidden" data-phone="${escapeHtml(p.phone)}" title="${p.hidden ? 'Listeye geri ekle' : 'Listeden kaldır'}" style="width:auto; padding:0 12px; gap:6px; font-size:0.8rem; font-weight:700;">
+                                <i class="fas ${p.hidden ? 'fa-eye-slash' : 'fa-eye'}"></i> ${p.hidden ? 'Gizli' : 'Görünür'}
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error("Aylık sıralama hatası:", err);
+                tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color:var(--accent-red); font-weight:bold;">
+                    <i class="fas fa-exclamation-triangle"></i> Hata Oluştu: ${escapeHtml(err.message)}
+                </td></tr>`;
+            }
+        }
+
+        // Listeden kaldır / geri ekle (kişinin bu dönemdeki tüm kayıtları işaretlenir)
+        document.getElementById('adminMonthlyBody').addEventListener('click', async (e) => {
+            const btn = e.target.closest('[data-action="toggle-hidden"]');
+            if (!btn || btn.disabled) return;
+            if (!auth.currentUser) {
+                alert("Bu işlem için yönetici girişi yapmalısınız.");
+                return;
+            }
+
+            const p = monthlyCache.find((x) => x.phone === btn.dataset.phone);
+            if (!p) return;
+
+            const newHidden = !p.hidden;
+            btn.disabled = true;
+            try {
+                await Promise.all(p.docIds.map((id) => updateDoc(doc(db, "results", id), { hidden: newHidden })));
+                await loadMonthly();
+            } catch (err) {
+                console.error("Gizleme hatası:", err);
+                alert("İşlem başarısız: " + err.message);
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('avgModeSelect').addEventListener('change', async (e) => {
+            if (!auth.currentUser || !season) return;
+            season.avgMode = e.target.value === 'all' ? 'all' : 'participated';
+            try {
+                await saveSeason();
+                await loadMonthly();
+            } catch (err) {
+                alert("Ayar kaydedilemedi: " + err.message);
+            }
+        });
+
+        document.getElementById('btnNextRound').addEventListener('click', async () => {
+            if (!auth.currentUser || !season || season.finished) return;
+
+            const isLast = season.currentRound >= TOTAL_ROUNDS;
+            const msg = isLast
+                ? "Son tur bitirilecek ve dönem kapatılacak. Katılımcılar yeni dönem başlayana kadar yarışmaya katılamaz.\n\nEmin misiniz?"
+                : `${season.currentRound}. tur bitirilecek ve ${season.currentRound + 1}. tur başlayacak.\n\nEmin misiniz?`;
+            if (!confirm(msg)) return;
+
+            try {
+                if (isLast) season.finished = true;
+                else season.currentRound += 1;
+                await saveSeason();
+                fillRoundFilter();
+                await loadMonthly();
+                renderPublicBoard();
+                alert(isLast
+                    ? "Dönem kapatıldı. Hediye kazananını bu sekmeden görebilirsiniz. Ana sayfada duyurmak için listeyi yayınlayın."
+                    : `${season.currentRound}. tur başladı.`);
+            } catch (err) {
+                console.error("Tur geçiş hatası:", err);
+                alert("İşlem başarısız: " + err.message);
+                await loadSeason();
+                updateSeasonControls();
+            }
+        });
+
+        document.getElementById('btnNewSeason').addEventListener('click', async () => {
+            if (!auth.currentUser) return;
+            if (!confirm("Yeni bir aylık dönem başlatılacak (1. tur). Eski dönemin kayıtları silinmez ama yeni ortalamaya dahil edilmez ve ana sayfadaki liste temizlenir.\n\nEmin misiniz?")) return;
+
+            try {
+                season = newSeasonObject();
+                await saveSeason();
+                await setDoc(doc(db, "settings", "board"), {
+                    seasonId: season.id,
+                    currentRound: season.currentRound,
+                    finished: false,
+                    entries: [],
+                    updatedAt: serverTimestamp()
+                });
+                await loadBoard();
+                fillRoundFilter();
+                await loadMonthly();
+                renderPublicBoard();
+                alert("Yeni dönem başlatıldı. 1. tur aktif.");
+            } catch (err) {
+                console.error("Yeni dönem hatası:", err);
+                alert("İşlem başarısız: " + err.message);
+            }
+        });
+
+        document.getElementById('btnPublishBoard').addEventListener('click', async () => {
+            if (!auth.currentUser) {
+                alert("Oturumunuz sona ermiş olabilir. Lütfen tekrar giriş yapın.");
+                return;
+            }
+            if (!season) return;
+
+            const btn = document.getElementById('btnPublishBoard');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yayınlanıyor...';
+
+            try {
+                const all = await fetchAllResults();
+                const list = aggregateSeason(all);
+
+                // Telefon numarası kesinlikle yayınlanmaz; yalnızca ad, ortalama ve tur sayısı.
+                // Gizlenenler ana sayfadaki listeye alınmaz.
+                const entries = list
+                    .filter((p) => !p.hidden)
+                    .map((p) => ({
+                        name: p.name,
+                        avg: Math.round(p.avg * 100) / 100,
+                        rounds: p.count
+                    }));
+
+                await setDoc(doc(db, "settings", "board"), {
+                    seasonId: season.id,
+                    currentRound: season.currentRound,
+                    finished: season.finished,
+                    entries,
+                    updatedAt: serverTimestamp()
+                });
+
+                await loadBoard();
+                renderPublicBoard();
+                alert(`Liste yayınlandı (${entries.length} kişi). Ana sayfada artık görünüyor.`);
+            } catch (err) {
+                console.error("Yayınlama hatası:", err);
+                alert("Liste yayınlanamadı: " + err.message + "\n\nFirestore güvenlik kurallarının 'settings' koleksiyonuna yönetici yazmasına izin verdiğini kontrol edin.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-bullhorn"></i> Listeyi Ana Sayfada Yayınla / Güncelle';
+            }
         });
 
         const adminList = document.getElementById('adminQuestionList');
