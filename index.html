@@ -1057,12 +1057,6 @@
                     </table>
                 </div>
 
-                <div class="editor-actions">
-                    <button type="button" class="btn btn-primary" id="btnPublishBoard" style="flex:1;"><i class="fas fa-bullhorn"></i> Listeyi Ana Sayfada Yayınla / Güncelle</button>
-                </div>
-                <p style="font-size:0.8rem; color: var(--text-muted); line-height:1.6;">
-                    Bir ismi listeden kaldırmak için satırdaki göz butonuna basın, ardından "Listeyi Yayınla" butonuna basın. Kaldırılan kişi puanlarını ve hediye hakkını korur; yalnızca ana sayfadaki listede görünmez.
-                </p>
             </div>
 
             <!-- Soru & Şık Editörü -->
@@ -1298,7 +1292,10 @@
             };
         }
 
+        let seasonLoadError = false;
+
         async function loadSeason() {
+            seasonLoadError = false;
             try {
                 const snap = await getDoc(doc(db, "settings", "season"));
                 if (snap.exists()) {
@@ -1316,6 +1313,7 @@
                 }
             } catch (err) {
                 console.error("Dönem bilgisi okunamadı:", err);
+                seasonLoadError = true;
                 season = null;
             }
             return season;
@@ -1334,6 +1332,8 @@
         async function ensureSeason() {
             await loadSeason();
             if (!season) {
+                // Okuma hatası varsa mevcut dönemin üstüne yeni dönem YAZMA.
+                if (seasonLoadError) throw new Error("Dönem bilgisi okunamadı. Sayfayı yenileyip tekrar deneyin.");
                 season = newSeasonObject();
                 await saveSeason();
             }
@@ -1548,8 +1548,17 @@
                 console.error("Firebase kayıt hatası:", err);
                 if (err.code === 'permission-denied') {
                     saveWarning = 'Bu telefon numarası ile bu turda daha önce katılım sağlanmış (veya tur sona ermiş) olduğu için bu sonuç sıralamaya eklenmedi.';
+                    // Yönetici girişliyse gerçek nedeni ayırt et (kayıt gerçekten var mı?)
+                    if (auth.currentUser) {
+                        try {
+                            const ex = await getDoc(doc(db, "results", `${userData.season}_r${userData.round}_${userData.phone}`));
+                            saveWarning = ex.exists()
+                                ? 'Bu numara bu turda zaten kayıtlı (belge mevcut).'
+                                : 'Bu numaraya ait kayıt YOK; Firestore güvenlik kuralları yazmayı başka bir nedenle reddetti (permission-denied). Kuralları kontrol edin.';
+                        } catch (e2) { /* yoksay */ }
+                    }
                 } else {
-                    saveWarning = 'Sonucunuz sunucuya kaydedilemedi, lütfen yöneticiyle iletişime geçin.';
+                    saveWarning = 'Sonucunuz sunucuya kaydedilemedi (' + (err.code || err.message) + '), lütfen yöneticiyle iletişime geçin.';
                 }
             }
 
@@ -1652,6 +1661,7 @@
                 editQuestions = clone(questions);
                 adminPanel.classList.remove('hidden');
                 fillRoundFilter();
+                if (season) roundFilter.value = String(season.currentRound);
                 setActiveTab('results');
                 loadLeaderboard();
             } else {
@@ -1795,7 +1805,9 @@
                 });
 
                 if (resultsList.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Henüz kayıtlı sonuç yok.</td></tr>';
+                    const other = all.filter((r) => !season || r.season !== season.id).length;
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">Henüz kayıtlı sonuç yok.'
+                        + (other > 0 ? ` (Başka dönemlere ait ${other} kayıt var.)` : '') + '</td></tr>';
                     return;
                 }
 
@@ -2046,7 +2058,7 @@
                 fillRoundFilter();
                 await loadMonthly();
                 alert(isLast
-                    ? "Dönem kapatıldı. Hediye kazananını bu sekmeden görebilirsiniz. Ana sayfada duyurmak için listeyi yayınlayın."
+                    ? "Dönem kapatıldı. Hediye kazananını bu sekmeden görebilirsiniz."
                     : `${season.currentRound}. tur başladı.`);
             } catch (err) {
                 console.error("Tur geçiş hatası:", err);
@@ -2077,50 +2089,6 @@
             } catch (err) {
                 console.error("Yeni dönem hatası:", err);
                 alert("İşlem başarısız: " + err.message);
-            }
-        });
-
-        document.getElementById('btnPublishBoard').addEventListener('click', async () => {
-            if (!auth.currentUser) {
-                alert("Oturumunuz sona ermiş olabilir. Lütfen tekrar giriş yapın.");
-                return;
-            }
-            if (!season) return;
-
-            const btn = document.getElementById('btnPublishBoard');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Yayınlanıyor...';
-
-            try {
-                const all = await fetchAllResults();
-                const list = aggregateSeason(all);
-
-                // Telefon numarası kesinlikle yayınlanmaz; yalnızca ad, ortalama ve tur sayısı.
-                // Gizlenenler ana sayfadaki listeye alınmaz.
-                const entries = list
-                    .filter((p) => !p.hidden)
-                    .map((p) => ({
-                        name: p.name,
-                        avg: Math.round(p.avg * 100) / 100,
-                        rounds: p.count
-                    }));
-
-                await setDoc(doc(db, "settings", "board"), {
-                    seasonId: season.id,
-                    currentRound: season.currentRound,
-                    finished: season.finished,
-                    entries,
-                    updatedAt: serverTimestamp()
-                });
-
-                await loadBoard();
-                alert(`Liste yayınlandı (${entries.length} kişi). Ana sayfada artık görünüyor.`);
-            } catch (err) {
-                console.error("Yayınlama hatası:", err);
-                alert("Liste yayınlanamadı: " + err.message + "\n\nFirestore güvenlik kurallarının 'settings' koleksiyonuna yönetici yazmasına izin verdiğini kontrol edin.");
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-bullhorn"></i> Listeyi Ana Sayfada Yayınla / Güncelle';
             }
         });
 
